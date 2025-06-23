@@ -48,9 +48,10 @@ func GenerateWords(dict []string, numOfWords int) []string {
 }
 
 func GenerateDigits(numOfDigits int) string {
-	maxNum := int(math.Pow10(numOfDigits))
+	minNum := int(math.Pow10(numOfDigits - 1))
+	maxNum := int(math.Pow10(numOfDigits) - 1)
 
-	return fmt.Sprintf("%d", rand.IntN(maxNum))
+	return fmt.Sprintf("%d", rand.IntN(maxNum-minNum)+minNum)
 }
 
 func GeneratePassword(words []string, digits string) string {
