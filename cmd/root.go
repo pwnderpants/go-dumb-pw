@@ -57,18 +57,16 @@ func isValidTemplate(template string, numWords int) bool {
 
 	valid := regexp.MustCompile(`\{(words|digits|w[1-9][0-9]*)\}`)
 	all := regexp.MustCompile(`\{[^}]+\}`)
-
 	allPlaceholders := all.FindAllString(template, -1)
+
 	for _, ph := range allPlaceholders {
 		if !valid.MatchString(ph) {
-
 			return false
 		}
 
 		if strings.HasPrefix(ph, "{w") && ph != "{words}" {
 			n, err := strconv.Atoi(ph[2 : len(ph)-1])
 			if err != nil || n < 1 || n > numWords {
-
 				return false
 			}
 		}

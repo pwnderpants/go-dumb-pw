@@ -56,10 +56,12 @@ func GenerateDigits(numOfDigits int) string {
 
 func GeneratePassword(words []string, digits string, template string) string {
 	password := template
+
 	for i, word := range words {
 		placeholder := fmt.Sprintf("{w%d}", i+1)
 		password = strings.ReplaceAll(password, placeholder, word)
 	}
+
 	password = strings.ReplaceAll(password, "{words}", strings.Join(words, "-"))
 	password = strings.ReplaceAll(password, "{digits}", digits)
 	password = strings.ReplaceAll(password, "'", "")
