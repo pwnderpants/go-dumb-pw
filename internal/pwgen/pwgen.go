@@ -54,15 +54,17 @@ func GenerateDigits(numOfDigits int) string {
 	return fmt.Sprintf("%d", rand.IntN(maxNum-minNum)+minNum)
 }
 
-func GeneratePassword(words []string, digits string) string {
-	var password string
+func GeneratePassword(words []string, digits string, template string) string {
+	password := template
 
-	for i := range words {
-		password += words[i]
-		password += "-"
+	for i, word := range words {
+		placeholder := fmt.Sprintf("{w%d}", i+1)
+		password = strings.ReplaceAll(password, placeholder, word)
 	}
 
+	password = strings.ReplaceAll(password, "{words}", strings.Join(words, "-"))
+	password = strings.ReplaceAll(password, "{digits}", digits)
 	password = strings.ReplaceAll(password, "'", "")
 
-	return password + digits
+	return password
 }
